@@ -9,6 +9,7 @@ function Signup() {
         password:""
     })
 
+    const navigate = useNavigate()
     
 
     function handleChange(e){
@@ -19,6 +20,7 @@ function Signup() {
         e.preventDefault()
         try{
             await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/sign-up`,formData)
+            navigate("/login")
         }
         catch(err){
             console.log(err)
