@@ -1,10 +1,23 @@
-import React from 'react'
+import {useState} from 'react'
 
 function Signup() {
+
+    const [formData, setFormData] = useState({
+        username:"",
+        password:""
+    })
+
+    function handleChange(e){
+        setFormData({...formData,[e.target.name]:e.target.value})
+    }
+
+    function handleSubmit(e){
+        e.preventDefault()
+    }
   return (
     <div>
       
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input
          type="text"
