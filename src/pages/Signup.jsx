@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router'
 
 function Signup() {
 
@@ -7,12 +9,20 @@ function Signup() {
         password:""
     })
 
+    
+
     function handleChange(e){
         setFormData({...formData,[e.target.name]:e.target.value})
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault()
+        try{
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/sign-up`,formData)
+        }
+        catch(err){
+            console.log(err)
+        }
     }
   return (
     <div>
@@ -23,6 +33,8 @@ function Signup() {
          type="text"
          name='username'
          id='username'
+         value={formData.username}
+         onChange={handleChange}
           />
 
         <label htmlFor="password">Password:</label>
@@ -30,6 +42,8 @@ function Signup() {
          type="password"
          name='password'
          id='password'
+         value={formData.password}
+         onChange={handleChange}
           />
 
           <button>Submit</button>
