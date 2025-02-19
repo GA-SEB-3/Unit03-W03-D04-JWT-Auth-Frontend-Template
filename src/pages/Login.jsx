@@ -1,6 +1,7 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router'
+import { authContext } from '../context/AuthContext'
 
 
 function Login() {
@@ -9,6 +10,7 @@ function Login() {
           password:""
       })
 
+      const {validateToken} = useContext(authContext)
       const navigate = useNavigate()
 
       function handleChange(e){
@@ -21,6 +23,7 @@ function Login() {
           const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/login`,formData)
           console.log(response.data)
           localStorage.setItem("token",response.data.token)
+          validateToken()
           // navigate("/login")
       }
       catch(err){
